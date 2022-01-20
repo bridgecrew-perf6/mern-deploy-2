@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from "axios"
+import { axiosInstance } from '../config';
 
 const User = () => {
     const [user, setuser] = useState();
@@ -11,7 +12,7 @@ const User = () => {
     //     alert(id)
     // }
     const deletedata = async (id)=>{
-        await axios.delete(`http://localhost:5000/api/users/${id}`);
+        await axiosInstance.delete(`http://localhost:5000/api/users/${id}`);
         alert("deleted");
         alert(id)
        

@@ -1,11 +1,12 @@
 import React,{useState,useEffect} from 'react';
 import axios from "axios"
+import { axiosInstance } from '../config';
 
 const Data = () => {
     const [data, setdata] = useState();
     useEffect(() => {
         const fetchdata = async () => {
-            const res = await axios.get("http://localhost:5000/api/db/getdata");
+            const res = await axiosInstance.get("api/db/getdata");
             
         
             console.log(res.data.person.eventsAttended.title)

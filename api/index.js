@@ -4,6 +4,7 @@ const cors = require("cors");
 const port = 5000
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
+const path = require("path")
 
 
 const userRoute = require("./route/users");
@@ -52,12 +53,22 @@ const user = [
   
 ]
 
-app.use("/",(req,res)=>{
-  console.log("main url")
-}) 
+// app.use("/",(req,res)=>{
+//   console.log("main url")
+// }) 
+
+__dirname = path.resolve();
+// app.use(express.static(path.join(__dirname, "../client/build")));
+app.use(express.static(path.join(__dirname, "./build")));
+
+app.get('*', (req, res) => {
+  // res.sendFile(path.join(__dirname ,"../","client",'build', 'index.html'));
+  res.sendFile(path.join(__dirname ,'build', 'index.html'));
+});
 
 
 
-app.listen(port, () => {
+
+app.listen(process.env.PORT || 5000, () => {
   console.log(`Backend is listening at http://localhost:${port}`)
 });
