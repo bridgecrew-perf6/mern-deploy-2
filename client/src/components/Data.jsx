@@ -7,8 +7,6 @@ const Data = () => {
     useEffect(() => {
         const fetchdata = async () => {
             const res = await axiosInstance.get("api/db/getdata");
-            
-        
             console.log(res.data.person.eventsAttended.title)
             setdata(res.data.person.eventsAttended);
         }

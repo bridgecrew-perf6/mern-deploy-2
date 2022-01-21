@@ -7,7 +7,7 @@ const Profile = () => {
     const [data, setdata] = useState()
 
     async function showdata(){
-        const response = await fetch("http://localhost:5000/api/users/all",{
+        const response = await fetch("http://137.184.197.212:5000/api/users/all",{
         headers:{
             'x-access-token':localStorage.getItem("token")
         },

@@ -12,7 +12,7 @@ const User = () => {
     //     alert(id)
     // }
     const deletedata = async (id)=>{
-        await axiosInstance.delete(`http://localhost:5000/api/users/${id}`);
+        await axiosInstance.delete(`http://137.184.197.212:5000/api/users/${id}`);
         alert("deleted");
         alert(id)
        
@@ -21,7 +21,7 @@ const User = () => {
 
     useEffect(() => {
         const fetchdata = async () => {
-            const res = await axios.get("http://localhost:5000/api/users/");
+            const res = await axios.get("http://137.184.197.212:5000/api/users/");
             console.log(res.data)
             setuser(res.data);
         }
@@ -36,7 +36,7 @@ const User = () => {
                     <>
 
                         <h1 key={u._id}>{u.username}</h1>
-                        <img src={`http://localhost:5000/images/${u.photo}`} alt="" />
+                        <img src={`http://137.184.197.212:5000/images/${u.photo}`} alt="" />
                         <button type="button" class="btn btn-primary"  onClick={()=>
                                             deletedata(u._id)}>Delete</button>
                         <h1 >{u._id}</h1>

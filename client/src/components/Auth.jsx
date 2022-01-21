@@ -13,7 +13,7 @@ const Auth = () => {
     const submitdata = async(e) => {
         e.preventDefault();
         alert("sbach Gjxzh")
-        const response = await fetch("http://localhost:5000/api/users/register",{method:"POST",
+        const response = await fetch("http://137.184.197.212:5000/api/users/register",{method:"POST",
         headers:{
             'Content-Type':"application/json"
         },
@@ -30,7 +30,7 @@ const Auth = () => {
 
     const loginsubmitdata = async(e) => {
         e.preventDefault();
-        const response = await fetch("http://localhost:5000/api/users/login",{method:"POST",
+        const response = await fetch("http://137.184.197.212:5000/api/users/login",{method:"POST",
         headers:{
             'Content-Type':"application/json"
         },
