@@ -31,12 +31,13 @@ const Profile = () => {
         var answer = window.confirm("Are you sure To delete?");
         if (answer) {
 
-            const res = await axiosInstance.delete(`http://137.184.197.212:5000/api/users/deleteuser/${Id}`);
-            setTimeout(() => {
-                setdel(!del);
-            }, 100);
+            const res = await axios.delete(`http://137.184.197.212:5000/api/users/deleteuser/${Id}`);
+            // const res = await axios.delete(`http://localhost:5000/api/users/deleteuser/${Id}`);
+            // setTimeout(() => {
+            //     setdel(!del);
+            // }, 100);
         }
-        alert(Id)
+        
 
     }
 
