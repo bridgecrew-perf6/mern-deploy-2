@@ -69,7 +69,7 @@ const verify = (req,res,next) =>{
 }
 
 
-//All user
+//All user userlogin table
 
 
 
@@ -117,6 +117,11 @@ router.post("/login",async (req,res)=>{
     }
 });
 
+
+
+
+
+
 //register
 
 router.post("/register",async (req,res)=>{
@@ -140,8 +145,78 @@ router.post("/register",async (req,res)=>{
     }
 });
 
+router.delete("/deleteuser/:id", async (req, res) => {
+    const id = req.params.id
+    try {
+        // const userpost = await User.findById(req.params._id);
+
+            try {
+                await UserLoginSchema.findByIdAndDelete({_id:id})
+
+            //  await userpost.delete();
+                res.status(200).json("User has been Deleted");
+
+            } catch (err) {
+                res.status(500).json(err);
+            }
+        
+    } catch (err) {
+        res.status(500).json(err);
+    }
+
+});
+
+router.put("/update/:id", async (req, res) => {
+    try {
+        
+        
+            try {
+                const updatedUser = await UserLoginSchema.findByIdAndUpdate(req.params.id,{
+                    $set:req.body
+                },{new:true}
+                );
+                res.status(200).json(updatedUser);
+
+            } catch (err) {
+                res.status(500).json(err);
+
+            }
+       
+
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//user table
 router.get("/:id",async (req,res)=>{
     try{
         const user = await User.findById(req.params.id);
@@ -152,7 +227,7 @@ router.get("/:id",async (req,res)=>{
 });
 
 
-
+//user table
 router.post("/post",upload.single('photo'),async (req,res)=>{
     const username = req.body.username;
     const lastname = req.body.lastname;
@@ -173,6 +248,7 @@ router.post("/post",upload.single('photo'),async (req,res)=>{
         res.status(500).json(err)
     }
 });
+
 // router.post("/post",async (req,res)=>{
 //     const userpost = new User(req.body);
 //     try{
@@ -184,7 +260,7 @@ router.post("/post",upload.single('photo'),async (req,res)=>{
 //     }
 // });
 
-
+//user table
 router.delete("/:id", async (req, res) => {
     try {
         // const userpost = await User.findById(req.params._id);
@@ -210,6 +286,8 @@ router.delete("/:id", async (req, res) => {
     //     }
 });
 
+
+//user table
 router.put("/:id", async (req, res) => {
     try {
         
