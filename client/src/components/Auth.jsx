@@ -1,6 +1,7 @@
 import React,{useState} from 'react';
 import { useNavigate } from "react-router-dom";
 import { axiosInstance } from '../config';
+import { Link } from 'react-router-dom';
 
 
 const Auth = () => {
@@ -59,6 +60,7 @@ const Auth = () => {
 
     return (
         <div>
+            <Link to="/userdata" style={{fontSize:"22px",marginRight:"34px"}}>View user with Images</Link><Link to="/createuser" style={{fontSize:"22px",marginRight:"34px"}}>create user with images</Link>
             <h1>Register</h1>
             <form  onSubmit={submitdata}>
                <input type="text" value={username} onChange={e=>setusername(e.target.value)} placeholder='name'/><br/>

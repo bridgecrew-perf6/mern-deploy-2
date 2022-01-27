@@ -8,8 +8,6 @@ const jsonwebtoken = require("jsonwebtoken")
 
 
 
-
-
 //image uploading on server
 
 
@@ -83,7 +81,6 @@ router.get("/all",async (req,res)=>{
         const user = await UserLoginSchema.find({username:username});
         res.status(200).json(user)
         
-
     }catch(err){
         res.status(500).json({"error":"invalid token"})
     }
@@ -116,9 +113,6 @@ router.post("/login",async (req,res)=>{
         res.status(500).json(err)
     }
 });
-
-
-
 
 
 
@@ -187,32 +181,6 @@ router.put("/update/:id", async (req, res) => {
         res.status(500).json(err);
     }
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -288,13 +256,17 @@ router.delete("/:id", async (req, res) => {
 
 
 //user table
-router.put("/:id", async (req, res) => {
+router.put("/updateuser/:id",upload.single('photo'), async (req, res) => {
     try {
-        
         
             try {
                 const updatedUser = await User.findByIdAndUpdate(req.params.id,{
-                    $set:req.body
+                    $set:{
+                        username:req.body.username,
+                        lastname:req.body.lastname,
+                        photo:req.body.photo
+
+                    }
                 },{new:true}
                 );
                 res.status(200).json(updatedUser);
