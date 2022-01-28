@@ -264,7 +264,7 @@ router.put("/updateuser/:id",upload.single('photo'), async (req, res) => {
                     $set:{
                         username:req.body.username,
                         lastname:req.body.lastname,
-                        photo:req.body.photo
+                        photo:req.file.filename
 
                     }
                 },{new:true}
@@ -281,6 +281,29 @@ router.put("/updateuser/:id",upload.single('photo'), async (req, res) => {
         res.status(500).json(err);
     }
 });
+
+//delete user
+router.delete("/deletedata/:id", async (req, res) => {
+    const id = req.params.id
+    try {
+        // const userpost = await User.findById(req.params._id);
+
+            try {
+                await User.findByIdAndDelete({_id:id})
+
+            //  await userpost.delete();
+                res.status(200).json("User has been Deleted");
+
+            } catch (err) {
+                res.status(500).json(err);
+            }
+        
+    } catch (err) {
+        res.status(500).json(err);
+    }
+
+});
+
 
 
 

@@ -7,13 +7,23 @@ const EditUser = () => {
     const {id} =useParams();
     const [username,setusername] = useState();
     const [lastname,setlastname] = useState();
-    const [userphoto,setphoto] = useState();
+    // const [userphoto,setphoto] = useState();
+
+    const [selectedFile, setSelectedFile] = useState();
+
+
+    console.log("selected file",selectedFile)
+
+    const handleFileSelect = (event) => {
+        setSelectedFile(event.target.files[0])
+    }
     useEffect( async () => {
         const {data} = await axiosInstance.get(`/api/users/${id}`);
         setusername(data.username)
         setlastname(data.lastname)
-        setlastname(data.lastname)
-        setphoto(data.photo)
+        setSelectedFile(data.photo)
+        // setlastname(data.lastname)
+        // /setphoto(data.photo)
         // console.log("userdetails",data)
         // console.log("username",data.username)
         // console.log("username",data.lastname)
@@ -31,7 +41,7 @@ const EditUser = () => {
         console.log(" inside div",id)
         console.log("iiiiiiiddddddd",username)
         console.log("iiiiiiiddddddd",lastname)
-        console.log("photo",userphoto)
+        // console.log("photo",userphoto)
         alert(id)
         
 
@@ -39,7 +49,7 @@ const EditUser = () => {
             await axios.put(`http://localhost:5000/api/users/updateuser/${id}`, {
                 username:username,
                 lastname:lastname,
-                photo:userphoto,
+                // photo:userphoto,
             })
 
 
@@ -54,32 +64,30 @@ const EditUser = () => {
         e.preventDefault();
         alert("clicked")
        
-        
         const userFormData = new FormData();
         userFormData.append("username", username)
         userFormData.append("lastname", lastname)
-        userFormData.append("photo", userphoto)
-        alert(id)
-        alert(username)
-        alert(lastname)
-        alert(userphoto)
+        userFormData.append("photo", selectedFile)
+
+        // alert(id)
+        // alert(username)
+        // alert(lastname)
+        // alert(userphoto)
         // console.log(userphoto)
         // alert()
         try {
             const response = await axios({
                 method: "put",
-                url: "http://localhost:5000/api/users/updateuser/"+id,
-                body: userFormData,
+                url: "http://137.184.197.212:5000/api/users/updateuser/"+id,
+                data: userFormData,
                 headers: { "Content-Type": "multipart/form-data" },
             });
         } catch (error) {
             console.log(error)
         }
-        alert("Edit User")
+        alert("User Updated");
     }
-    const handleFileSelect = (event) => {
-        setphoto(event.target.files[0])
-    }
+   
     
   return <>
   <h1>Edit User</h1>
@@ -97,7 +105,7 @@ const EditUser = () => {
             {/* <img className='mt-3' src={`http://137.184.197.212:5000/images/${userphoto}`} height={80} width={80} /> */}
             <div  style={{ padding: "5px" }}>
                 <div >
-                    <button onClick={handleSubmit}  >Submit</button>
+                    <button onClick={handleSubmit}>Submit</button>
                 </div>
             </div>
         </form>

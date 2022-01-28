@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { axiosInstance } from '../config';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 const Userdata = () => {
     const [user, setuserdata] = useState();
@@ -18,6 +19,20 @@ const Userdata = () => {
         userdatas();
     }, []);
 
+    const deletdata = async (Id) => {
+        console.log("id",Id)
+        var answer = window.confirm("Are you sure To delete?");
+        
+        
+        if (answer) {
+
+            const res = await axios.delete(`http://137.184.197.212:5000/api/users/deletedata/${Id}`);
+            
+        }
+        
+
+    }
+
     return <>
         <h1>User data</h1>
         <div className="users-data">
@@ -32,9 +47,8 @@ const Userdata = () => {
                             
                             <h2>{e.username}</h2> <h2 style={{marginleft:"100px"}}>{e.lastname}</h2>
                             <img src={`http://137.184.197.212:5000/images/${e.photo}`} alt="" height={100} width={100} />
-                            {/* <Link to={`/edit/${e._id}`}>Edit</Link>
-                            <button className="col-md-1 btn btn-primary" onClick={() =>
-                                            deletdata(e._id)} > Remove </button> */}
+                             <Link to={`/edit/${e._id}`}>Edit</Link>
+                            <button onClick={() =>deletdata(e._id)} > Remove </button> 
                             
                         </div>
 
