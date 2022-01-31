@@ -35,23 +35,7 @@ app.use("/api/db",dbRoute);
 // app.use("/api/categories",categoryRoute);
 
 
-const user = [
-  {
-    id:"1",
-    username:"Mihir",
-    password:"123",
-    isAdmin:"true"
 
-  },
-  {
-    id:"2",
-    username:"Shubham",
-    password:"321",
-    isAdmin:"false"
-
-  },
-  
-]
 
 // app.use("/",(req,res)=>{
 //   console.log("main url")

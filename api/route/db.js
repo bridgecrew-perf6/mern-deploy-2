@@ -29,7 +29,7 @@ router.get("/getdata", async (req, res) => {
                 if (err) return handleError(err);
                 // console.log(person);
                 // console.log(person);
-                res.status(200).json({person})
+                res.status(200).json(person)
             });
 
 

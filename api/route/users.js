@@ -1,5 +1,7 @@
 const router = require("express").Router();
-const User = require("../models/User");
+const {User} = require("../models/User");
+const {School} = require("../models/User");
+const {EventSchool} = require("../models/User");
 const UserLoginSchema = require("../models/userLogin")
 const multer = require('multer');
 let path = require('path');
@@ -37,11 +39,53 @@ const storage = multer.diskStorage({
 
 
 router.get("/",async (req,res)=>{
-    try{
-        const user = await User.find();
+    // try{
+    //     const user = await User.find();
+    //     res.status(200).json(user)
+
+    // }catch(err){
+    //     res.status(500).json(err)
+    // }
+    try {
+        User
+            .find()
+            .populate('school')
+            .exec(function (err, user) {
+                if (err) return handleError(err);
+                // console.log(person);
+                // console.log(person);
+                res.status(200).json(user)
+            });
+
+
+        // const user = await Person.find();
+        // res.status(200).json(user)
+
+    } catch (err) {
+        res.status(500).json(err)
+    }
+});
+
+router.get("/xyz", async (req, res) => {
+    try {
+        const event = await EventSchool.find();
+        res.status(200).json(event)
+        // const user = await User.find();
+        // res.status(200).json(user)
+
+    } catch (err) {
+        res.status(500).json(err)
+    }
+});
+
+//foreign key
+router.get("/school", async (req, res) => {
+
+    try {
+        const user = await School.find();
         res.status(200).json(user)
 
-    }catch(err){
+    } catch (err) {
         res.status(500).json(err)
     }
 });
@@ -162,8 +206,6 @@ router.delete("/deleteuser/:id", async (req, res) => {
 
 router.put("/update/:id", async (req, res) => {
     try {
-        
-        
             try {
                 const updatedUser = await UserLoginSchema.findByIdAndUpdate(req.params.id,{
                     $set:req.body
@@ -199,13 +241,15 @@ router.get("/:id",async (req,res)=>{
 router.post("/post",upload.single('photo'),async (req,res)=>{
     const username = req.body.username;
     const lastname = req.body.lastname;
+    const school = req.body.school;
     const photo = req.file.filename;
     // const userpost = new User(req.body);
 
     const newUserData = {
         username,
         lastname,
-        photo
+        photo,
+        school
     }
       const newUser = new User(newUserData);
     try{
@@ -264,6 +308,7 @@ router.put("/updateuser/:id",upload.single('photo'), async (req, res) => {
                     $set:{
                         username:req.body.username,
                         lastname:req.body.lastname,
+                        school:req.body.school,
                         photo:req.file.filename
 
                     }
@@ -303,6 +348,24 @@ router.delete("/deletedata/:id", async (req, res) => {
     }
 
 });
+
+//foreign key concept
+
+router.get("/school", async (req, res) => {
+
+    try {
+        const user = await School.find();
+        res.status(200).json(user)
+
+    } catch (err) {
+        res.status(500).json(err)
+    }
+});
+
+
+
+
+
 
 
 
